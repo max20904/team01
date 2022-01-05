@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Motorcycle extends Model
 {
     use HasFactory;
-    protected $fillable = [
+    protected $fillable=[
         'bid',
         'name',
         'year',
@@ -20,4 +20,6 @@ class Motorcycle extends Model
         'sitting_height',
         'price'
     ];
+
+
 }

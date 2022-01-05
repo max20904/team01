@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Motorcycle;
 use Illuminate\Http\Request;
 
 class BrandsController extends Controller
@@ -27,6 +28,7 @@ class BrandsController extends Controller
     public function create()
     {
         //
+        return view("brands.create");
     }
 
     /**
@@ -38,6 +40,19 @@ class BrandsController extends Controller
     public function store(Request $request)
     {
         //
+
+        $name = $request->input('name');
+        $country = $request->input('country');
+
+
+        brand::create(
+            [
+                'name'=>$name,
+                'country'=>$country
+            ]
+        );
+
+        return redirect('brands');
     }
 
     /**
@@ -61,6 +76,8 @@ class BrandsController extends Controller
     public function edit($id)
     {
         //
+        $brand=brand::FindOrFail($id);
+        return view("brands.edit")->with(['brand'=>$brand]);
     }
 
     /**
@@ -73,6 +90,12 @@ class BrandsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $brand = brand::findOrFail($id);
+        $brand->name = $request->input('name');
+        $brand->country = $request->input('country');
+        $brand->save();
+
+        return redirect('brands');
     }
 
     /**
@@ -84,5 +107,8 @@ class BrandsController extends Controller
     public function destroy($id)
     {
         //
+        $brand = brand::findOrFail($id);
+        $brand->delete();
+        return redirect('brands');
     }
 }

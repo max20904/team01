@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Motorcycle;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class MotorcyclesController extends Controller
     public function create()
     {
         //
-        return view('motorcycles.create');
+        return view("motorcycles.create");
     }
 
     /**
@@ -39,6 +40,7 @@ class MotorcyclesController extends Controller
     public function store(Request $request)
     {
         //
+
         $bid = $request->input('bid');
         $name = $request->input('name');
         $year = $request->input('year');
@@ -52,18 +54,19 @@ class MotorcyclesController extends Controller
 
         Motorcycle::create(
             [
-                'bid' => $bid,
-                'name'=>$name,
-                'year'=>$year,
-                'CC'=>$CC,
-                'eid'=>$eid,
-                'horsepower'=>$horsepower,
-                'torque'=>$torque,
-                'tank_capacity'=>$tank_capacity,
-                'sitting_height'=>$sitting_height,
-                'price'=>$price
-            ]
+            'bid' => $bid,
+            'name'=>$name,
+            'year'=>$year,
+            'CC'=>$CC,
+            'eid'=>$eid,
+            'horsepower'=>$horsepower,
+            'torque'=>$torque,
+            'tank_capacity'=>$tank_capacity,
+            'sitting_height'=>$sitting_height,
+            'price'=>$price
+        ]
         );
+
         return redirect('motorcycles');
     }
 
@@ -75,9 +78,11 @@ class MotorcyclesController extends Controller
      */
     public function show($id)
     {
-        //model
+
         $motorcycle=Motorcycle::FindOrFail($id);
-        return view('motorcycles.show')->with(['motorcycle'=>$motorcycle]);  }
+        return view('motorcycles.show')->with(['motorcycle'=>$motorcycle]);
+
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -89,7 +94,8 @@ class MotorcyclesController extends Controller
     {
         //
         $motorcycle=Motorcycle::FindOrFail($id);
-        return view('motorcycles.edit')->with(['motorcycle'=>$motorcycle]);    }
+        return view('motorcycles.edit')->with(['motorcycle'=>$motorcycle]);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -126,8 +132,8 @@ class MotorcyclesController extends Controller
     public function destroy($id)
     {
         //
-        $motorcycles= Motorcycle::FindOrFail($id);
-        $motorcycles->delete();
+        $motorcycle = Motorcycle::findOrFail($id);
+        $motorcycle->delete();
         return redirect('motorcycles');
     }
 }
